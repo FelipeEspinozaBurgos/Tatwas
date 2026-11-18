@@ -1,0 +1,13 @@
+@use "../abstracts/mixins" as mixins;
+
+/* La utilidad solo se aplica a elementos que usan el efecto de vidrio. */
+.glass {
+  @include mixins.glass;
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .glass {
+    background: var(--card);
+    backdrop-filter: none;
+  }
+}

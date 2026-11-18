@@ -1,0 +1,39 @@
+@mixin dark-tokens {
+  --bg: #0f0d17;
+  --card: #171424;
+  --text: #ece6d6;
+  --muted: #a199b5;
+  --line: #2c2740;
+  --gold: #d4af5f;
+  --now: #5b4a14;
+  --c0: #8a78e6;
+  --c1: #4cc3e8;
+  --c2: #ff5a3d;
+  --c3: #f0c33c;
+  --c4: #cfd8e6;
+}
+
+@mixin glass {
+  background: color-mix(in srgb, var(--card) 88%, transparent);
+  backdrop-filter: blur(12px);
+}
+
+@mixin motion-ok {
+  @media (prefers-reduced-motion: no-preference) {
+    @content;
+  }
+}
+
+@mixin motion-reduce {
+  @media (prefers-reduced-motion: reduce) {
+    @content;
+  }
+}
+
+@mixin bp($size) {
+  @if map-has-key(variables.$breakpoints, $size) {
+    @media (min-width: map-get(variables.$breakpoints, $size)) {
+      @content;
+    }
+  }
+}

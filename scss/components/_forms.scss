@@ -1,0 +1,61 @@
+@use "../abstracts/variables" as vars;
+@use "../abstracts/mixins" as mixins;
+
+label {
+  display: block;
+  margin-bottom: 3px;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+input,
+select,
+button {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: vars.$radius-control;
+  background: var(--bg);
+  color: var(--text);
+  font: inherit;
+}
+
+button {
+  width: auto;
+  cursor: pointer;
+}
+
+@include mixins.motion-ok {
+  button {
+    transition: background vars.$transition-fast, border-color vars.$transition-fast;
+  }
+}
+
+button:hover {
+  border-color: var(--gold);
+}
+
+button.on {
+  border-color: var(--gold);
+  background: var(--gold);
+  color: var(--bg);
+}
+
+#custom {
+  display: none;
+  margin-top: 10px;
+}
+
+#custom.visible {
+  display: grid;
+}
+
+#err {
+  display: none;
+  margin: 0 0 12px;
+  color: #c0392b;
+}
+
+.row.row-compact {
+  margin-top: 0;
+}

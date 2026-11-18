@@ -1,0 +1,21 @@
+@use "../abstracts/variables" as vars;
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+h1 {
+  color: var(--gold);
+  font-size: 1.9rem;
+  line-height: 1.1;
+}
+
+.sub {
+  margin: 2px 0 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+}

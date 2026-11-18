@@ -1,0 +1,28 @@
+$font-body: "Outfit", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+$font-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+$breakpoints: (
+  sm: 36rem,
+  md: 48rem,
+  lg: 64rem
+);
+$radius-card: 14px;
+$radius-control: 9px;
+$radius-pill: 99px;
+$content-width: 860px;
+$table-min-width: 480px;
+$transition-fast: 0.2s;
+
+:root {
+  --bg: #f3eee1;
+  --card: #fbf8ef;
+  --text: #251f16;
+  --muted: #75694f;
+  --line: #ddd2b6;
+  --gold: #9a7425;
+  --now: #f0d98a;
+  --c0: #4a3a96;
+  --c1: #2a8fb5;
+  --c2: #d6391f;
+  --c3: #c99a0c;
+  --c4: #7f8da3;
+}

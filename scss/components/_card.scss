@@ -1,0 +1,38 @@
+@use "../abstracts/variables" as vars;
+
+.card {
+  margin-bottom: 14px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: vars.$radius-card;
+  background: var(--card);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 26px;
+}
+
+.info b {
+  display: block;
+  font-size: 1.3rem;
+}
+
+.info span {
+  color: var(--muted);
+  font-size: 0.8rem;
+}

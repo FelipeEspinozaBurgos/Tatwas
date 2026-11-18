@@ -1,89 +1,70 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Tatwámetro · Vibraciones del Éter</title>
-<style>
-/* ===== Tokens (modo claro = pergamino; oscuro = noche mística) ===== */
-:root{--bg:#f3eee1;--card:#fbf8ef;--text:#251f16;--muted:#75694f;--line:#ddd2b6;--gold:#9a7425;--now:#f0d98a;
---c0:#4a3a96;--c1:#2a8fb5;--c2:#d6391f;--c3:#c99a0c;--c4:#7f8da3;
-box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f0d17;--card:#171424;--text:#ece6d6;--muted:#a199b5;--line:#2c2740;--gold:#d4af5f;--now:#5b4a14;
---c0:#8a78e6;--c1:#4cc3e8;--c2:#ff5a3d;--c3:#f0c33c;--c4:#cfd8e6}}
-:root[data-theme="dark"]{--bg:#0f0d17;--card:#171424;--text:#ece6d6;--muted:#a199b5;--line:#2c2740;--gold:#d4af5f;--now:#5b4a14;
---c0:#8a78e6;--c1:#4cc3e8;--c2:#ff5a3d;--c3:#f0c33c;--c4:#cfd8e6}
-*{box-sizing:border-box}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
-body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 "Outfit",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
-h1,h2,h3{font-family:"Cormorant Garamond",Georgia,"Times New Roman",serif;font-weight:600;margin:0}
-main{max-width:860px;margin:0 auto;padding:18px 14px 48px}
-header{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px}
-h1{font-size:1.9rem;line-height:1.1;color:var(--gold)}
-.sub{color:var(--muted);font-size:.85rem;margin:2px 0 0}
-.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:14px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
-label{display:block;font-size:.8rem;color:var(--muted);margin-bottom:3px}
-input,select,button{font:inherit;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:9px;padding:8px 10px;width:100%}
-button{cursor:pointer;width:auto;transition:background .2s,border-color .2s}
-button:hover{border-color:var(--gold)}
-:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
-.row{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
-button.on{background:var(--gold);color:var(--bg);border-color:var(--gold)}
-nav{display:flex;gap:6px;margin-bottom:14px;overflow-x:auto}
-nav button{white-space:nowrap;border-radius:99px}
-section{display:none}section.show{display:block}
-#err{color:#c0392b;display:none;margin:0 0 12px}
-/* ===== Tatwómetro en vivo ===== */
-.live{text-align:center;border-top:4px solid var(--c);--c:var(--c0)}
-.ring{position:relative;width:min(260px,70vw);aspect-ratio:1;margin:6px auto}
-.ring svg{width:100%;height:100%}
-.ring .sym{position:absolute;inset:22%;display:grid;place-items:center;filter:drop-shadow(0 0 14px var(--c))}
-.ring .sym svg{width:100%;height:100%}
-.big{font-family:"Cormorant Garamond",Georgia,serif;font-size:2.6rem;color:var(--c);line-height:1}
-.count{font-size:2.2rem;font-variant-numeric:tabular-nums;font-weight:300;letter-spacing:.03em}
-.meta{color:var(--muted);font-size:.9rem}
-.phrase{max-width:56ch;margin:12px auto 0;font-family:"Cormorant Garamond",Georgia,serif;font-size:1.25rem;font-style:italic}
-.chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:12px}
-.chip{border:1px solid var(--line);border-radius:99px;padding:2px 10px;font-size:.8rem;color:var(--muted)}
-/* ===== Tabla ===== */
-.wrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--card)}
-table{border-collapse:collapse;width:100%;min-width:480px}
-th,td{padding:6px 10px;text-align:center;border-bottom:1px solid var(--line)}
-th{position:sticky;top:0;background:var(--card);font-size:.8rem;color:var(--muted);font-weight:500}
-tbody tr{background:color-mix(in srgb,var(--c) 13%,transparent)}
-tbody tr td:nth-child(3){color:var(--c);font-weight:600}
-tbody tr.cyc td{border-top:2px solid var(--gold)}
-tbody tr.now{background:var(--now)}tbody tr.now td{font-weight:700}
-.sm{font-size:.7rem;color:var(--gold);font-weight:700}
-.info{display:flex;flex-wrap:wrap;gap:6px 26px}.info b{display:block;font-size:1.3rem}.info span{font-size:.8rem;color:var(--muted)}
-.note{color:var(--muted);font-size:.8rem}
-/* ===== Guía ===== */
-.guide p{max-width:68ch}
-.el{border-left:4px solid var(--c)}
-.el h3{color:var(--c);font-size:1.6rem;display:flex;align-items:center;gap:10px}
-.el h3 svg{width:30px;height:30px;flex:none}
-.el dl{display:grid;grid-template-columns:auto 1fr;gap:2px 12px;font-size:.88rem;margin:8px 0}
-.el dt{color:var(--muted)}.el dd{margin:0}
-.do{color:var(--text)}.do b{color:var(--c)}
-@media (prefers-reduced-motion:reduce){*{transition:none!important}}
-</style>
+<title>Tatwámetro · Ciclos de los 5 elementos según Krumm Heller</title>
+<meta name="description" content="Calculadora y reloj en vivo de los Tatwas Akas, Vayu, Tejas, Prithvi y Apas según la salida del sol, con tabla diaria y guía de Krumm Heller para cada lugar.">
+<meta name="author" content="Felipe Espinoza Burgos">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://tatwas.netlify.app/">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#f3eee1">
+<meta name="theme-color" content="#0f0d17" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Tatwámetro">
+<meta property="og:title" content="Tatwámetro · Ciclos de los 5 elementos según Krumm Heller">
+<meta property="og:description" content="Calculadora y reloj en vivo de los Tatwas Akas, Vayu, Tejas, Prithvi y Apas según la salida del sol, con tabla diaria y guía de Krumm Heller para cada lugar.">
+<meta property="og:url" content="https://tatwas.netlify.app/">
+<meta property="og:locale" content="es_MX">
+<meta property="og:image" content="https://tatwas.netlify.app/assets/img/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:alt" content="Tatwámetro: Las vibraciones del Éter · Krumm Heller">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Tatwámetro · Ciclos de los 5 elementos según Krumm Heller">
+<meta name="twitter:description" content="Calculadora y reloj en vivo de los Tatwas Akas, Vayu, Tejas, Prithvi y Apas según la salida del sol, con tabla diaria y guía de Krumm Heller para cada lugar.">
+<meta name="twitter:image" content="https://tatwas.netlify.app/assets/img/og-image.jpg">
+<meta name="twitter:image:alt" content="Tatwámetro: Las vibraciones del Éter · Krumm Heller">
+<link rel="icon" href="favicon.webp" type="image/webp">
+<link rel="icon" href="assets/img/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="stylesheet" href="css/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Tatwámetro",
+  "description": "Calculadora y reloj en vivo de los Tatwas según la salida del sol y las enseñanzas de Krumm Heller.",
+  "url": "https://tatwas.netlify.app/",
+  "applicationCategory": "LifestyleApplication",
+  "inLanguage": "es",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+}
+</script>
 </head>
 <body>
-<main>
+<a class="skip-link" href="#main">Saltar al contenido</a>
+<noscript><p class="noscript">Este sitio necesita JavaScript para calcular y mostrar los ciclos de los Tatwas.</p></noscript>
+<main id="main">
 <header>
   <div><h1>Tatwámetro</h1><p class="sub">Las vibraciones del Éter · según el Dr. Krumm Heller</p></div>
   <button id="theme" aria-label="Cambiar tema">◐ Tema</button>
 </header>
 
-<!-- Ubicación compartida por todas las secciones -->
 <div class="card">
   <div class="grid">
     <div><label for="place">Lugar</label><select id="place"></select></div>
     <div><label for="date">Fecha (tabla)</label><input type="date" id="date"></div>
     <div><label for="adj">Ajuste de salida (min)</label><input type="number" id="adj" value="0" step="1"></div>
   </div>
-  <div class="grid" id="custom" style="display:none;margin-top:10px">
+  <div class="grid" id="custom">
     <div><label for="lat">Latitud</label><input type="number" id="lat" step="0.0001" value="21.1619"></div>
     <div><label for="lon">Longitud</label><input type="number" id="lon" step="0.0001" value="-86.8515"></div>
     <div><label for="tz">Zona horaria (IANA)</label><input type="text" id="tz" value="America/Cancun"></div>
@@ -98,7 +79,6 @@ tbody tr.now{background:var(--now)}tbody tr.now td{font-weight:700}
   <button data-tab="guide">Guía de Krumm Heller</button>
 </nav>
 
-<!-- A. EN VIVO -->
 <section id="live" class="show">
   <div class="card live" id="liveCard">
     <div class="meta" id="liveSun"></div>
@@ -116,9 +96,8 @@ tbody tr.now{background:var(--now)}tbody tr.now td{font-weight:700}
   </div>
 </section>
 
-<!-- B. TABLA -->
 <section id="table">
-  <div class="card"><div class="row" style="margin-top:0">
+  <div class="card"><div class="row row-compact">
     <button id="prev">◀ Día anterior</button><button id="today">Hoy</button><button id="next">Día siguiente ▶</button></div></div>
   <div class="card info" id="info"></div>
   <div class="wrap"><table>
@@ -127,161 +106,12 @@ tbody tr.now{background:var(--now)}tbody tr.now td{font-weight:700}
   <p class="note">Hora de salida del sol calculada con SunCalc (±1–2 min). El último objeto del día se ajusta para terminar exactamente en el amanecer siguiente (<span class="sm">*</span>). <span class="sm">+1</span> indica que la hora cae después de medianoche.</p>
 </section>
 
-<!-- C. GUÍA -->
 <section id="guide" class="guide"></section>
 </main>
 
-<script src="https://cdn.jsdelivr.net/npm/suncalc@1.9.0/suncalc.min.js"></script>
-<script>
-"use strict";
-/* ====== Datos de los Tatwas (fuente: Krumm Heller, El Tatwámetro) ====== */
-const EL=[
- {n:"Akas",es:"Éter",pl:"Saturno",sense:"Oído",dir:"Centro",mant:"HAM",col:"Negro o sin color · índigo",sab:"Amargo",
-  p:"Silencio, meditación y recogimiento. No empieces nada material.",
-  hacer:"Meditar, orar, aislarte, pensar en el principio de todo ser. Solo ocupaciones serias corrigen su influencia.",
-  evitar:"Iniciar negocios, estudios, uniones o asuntos importantes: traen decepción, turbación y errores. Es el Tatwa que disuelve y retorna todo a su origen.",
-  txt:"El Tatwa Akas es el retorno al estado primitivo: la paz, la estabilidad y el sueño universal. Lo gobierna Saturno, ejecutor del destino kármico. Para Krumm Heller, de Akas parten los demás principios y en Akas deben disolverse; por eso lo practica el que busca la quietud interior."},
- {n:"Vayu",es:"Aire",pl:"Mercurio",sense:"Tacto",dir:"Norte",mant:"PAM",col:"Azul hasta verdoso",sab:"Ácido",
-  p:"Movimiento y palabra: camina, viaja, estudia. Cuida la lengua.",
-  hacer:"Caminatas, ascensiones, viajes, trabajos intelectuales y oratoria. Quien comienza a caminar en Vayu se cansa menos.",
-  evitar:"Chismes, calumnias, mentiras y palabras vanas. No compres, no contrates criados ni inicies matrimonios o cosas de larga duración.",
-  txt:"Vayu es la primera manifestación de la vida: el movimiento. Su aspecto bajo inclina a la murmuración, la avaricia y el engaño; su aspecto elevado, a la abstinencia y a la claridad intelectual. Si Akas es el Tatwa del silencio, Vayu desarrolla el sentido del lenguaje."},
- {n:"Tejas",es:"Fuego",pl:"Sol y Marte",sense:"Vista",dir:"Sur",mant:"RAM",col:"Rojo",sab:"Muy picante",
-  p:"Fuerza y acción: úsala bien. Cuidado con la ira, la riña y la fiebre.",
-  hacer:"Actividad productiva, empresas que exigen energía, trabajo con fuego o hierro, combatir males de naturaleza negativa.",
-  evitar:"Discutir, litigar y contradecir. Toda riña que comienza en Tejas toma grandes proporciones. Evita matrimonios, viajes largos y las enfermedades febriles que empiezan aquí.",
-  txt:"Tejas es el calor y la luz; la libertad, la actividad y todo hecho grande nacen de él. Aumenta la energía y la confianza en sí mismo, pero empuja a abusar de la fuerza: es portador de luchas y riñas. Su temperatura eleva la propia."},
- {n:"Prithvi",es:"Tierra",pl:"Júpiter y Venus",sense:"Olfato",dir:"Este",mant:"LAM",col:"Amarillo",sab:"Dulce",
-  p:"Alegría, salud y justicia. Buen momento para contratos y juicios.",
-  hacer:"Iniciar juicios y contratos, casarte, fundar un hogar, entablar amistad, orar, tratar enfermedades y organizar reuniones.",
-  evitar:"Casi nada: es el más benéfico. Procura no abusar del placer ni de la ambición material.",
-  txt:"Prithvi es el Tatwa de la alegría, del goce, de la justicia, del humanitarismo y del amor universal. Representa la cohesión: conduce a la solidaridad, al orden y a la unión. Lo que comienza en Prithvi es benéfico y constante; su influencia es la de Júpiter, «la fortuna mayor»."},
- {n:"Apas",es:"Agua",pl:"Venus y Luna",sense:"Gusto",dir:"Oeste",mant:"VAM",col:"Blanco · gris plata",sab:"Astringente",
-  p:"Concentración, riqueza y belleza: crea, comercia y ama con armonía.",
-  hacer:"Negocios, depósitos, compras de alhajas y vestidos, arte, viajes marítimos, obras de caridad, concentración y estudio.",
-  evitar:"Excesos de bebida y gula; la codicia en los de bajo nivel moral. Es estacionario: lo que emprendas te fijará largo tiempo.",
-  txt:"Apas es el Tatwa de los acomodados, de la opulencia y del amor. Obra concentrando y es lo contrario de Tejas. Favorece a los artistas, a los pescadores, a los viajeros y la concepción; es el Tatwa de Venus. Un rayo caído durante Apas nunca incendia."}
-];
-const V=["--c0","--c1","--c2","--c3","--c4"];
-const SYM=[ // símbolos tátwicos: huevo, círculo, triángulo, cuadrado, luna creciente
- '<ellipse cx="50" cy="50" rx="24" ry="38" fill="var(--c)"/>',
- '<circle cx="50" cy="50" r="36" fill="var(--c)"/>',
- '<polygon points="50,12 92,86 8,86" fill="var(--c)"/>',
- '<rect x="16" y="16" width="68" height="68" rx="3" fill="var(--c)"/>',
- '<path d="M8 28 Q50 100 92 28 Q50 66 8 28Z" fill="var(--c)"/>'];
-const sym=i=>`<svg viewBox="0 0 100 100" style="--c:var(${V[i]})" aria-hidden="true">${SYM[i]}</svg>`;
-
-const PLACES={cancun:["Cancún, México",21.1619,-86.8515,"America/Cancun"],cdmx:["Ciudad de México",19.4326,-99.1332,"America/Mexico_City"],
-bogota:["Bogotá, Colombia",4.711,-74.0721,"America/Bogota"],bsas:["Buenos Aires, Argentina",-34.6037,-58.3816,"America/Argentina/Buenos_Aires"],
-madrid:["Madrid, España",40.4168,-3.7038,"Europe/Madrid"],lima:["Lima, Perú",-12.0464,-77.0428,"America/Lima"],
-santiago:["Santiago, Chile",-33.4489,-70.6693,"America/Santiago"],caracas:["Caracas, Venezuela",10.4806,-66.9036,"America/Caracas"],
-barcelona:["Barcelona, España",41.3874,2.1686,"Europe/Madrid"],custom:["Otro (lat/lon manual)"]};
-const MIN=60000,$=id=>document.getElementById(id),sel=$("place");
-for(const k in PLACES){const o=document.createElement("option");o.value=k;o.textContent=PLACES[k][0];sel.appendChild(o);}
-
-/* ====== Utilidades de lugar y tiempo ====== */
-function loc(){
-  if(sel.value==="custom")return{lat:parseFloat($("lat").value),lon:parseFloat($("lon").value),tz:$("tz").value.trim()};
-  const p=PLACES[sel.value];return{lat:p[1],lon:p[2],tz:p[3]};
-}
-const fmtT=(ms,tz)=>new Intl.DateTimeFormat("en-GB",{timeZone:tz,hour:"2-digit",minute:"2-digit",hourCycle:"h23"}).format(ms);
-const fmtD=(ms,tz)=>new Intl.DateTimeFormat("en-CA",{timeZone:tz}).format(ms);
-const addDays=(ymd,n)=>{const[y,m,d]=ymd.split("-").map(Number);return new Date(Date.UTC(y,m-1,d+n)).toISOString().slice(0,10);};
-const pad=n=>String(n).padStart(2,"0");
-function sunrise(ymd,L,adj){ // salida del sol (ms UTC) redondeada al minuto
-  const[y,m,d]=ymd.split("-").map(Number);
-  const noon=Date.UTC(y,m-1,d,12)-L.lon/15*3600000;
-  const t=SunCalc.getTimes(new Date(noon),L.lat,L.lon).sunrise.getTime();
-  return isNaN(t)?NaN:Math.round(t/MIN)*MIN+adj*MIN;
-}
-function showErr(m){const e=$("err");e.textContent=m;e.style.display=m?"block":"none";}
-function validate(L){
-  if(!isFinite(L.lat)||!isFinite(L.lon)||Math.abs(L.lat)>90||Math.abs(L.lon)>180){showErr("Coordenadas no válidas: latitud entre -90 y 90, longitud entre -180 y 180.");return false;}
-  try{fmtT(0,L.tz);}catch(e){showErr("Zona horaria no válida. Usa un nombre IANA, p. ej. America/Cancun.");return false;}
-  showErr("");return true;
-}
-/* 60 entradas: inicia en el amanecer; el último termina en el amanecer siguiente */
-function schedule(ymd,L,adj){
-  const s=sunrise(ymd,L,adj),nx=sunrise(addDays(ymd,1),L,adj);
-  if(isNaN(s)||isNaN(nx))return null;
-  return{s,nx,rows:Array.from({length:60},(_,i)=>({i,a:s+i*24*MIN,b:i===59?nx:s+(i+1)*24*MIN}))};
-}
-
-/* ====== B. Tabla diaria ====== */
-function renderTable(){
-  const L=loc(),ymd=$("date").value,adj=+$("adj").value||0;
-  if(!ymd||!validate(L))return;
-  const S=schedule(ymd,L,adj);
-  if(!S){showErr("No hay salida del sol en esa fecha y latitud.");return;}
-  const now=Date.now();let h="";
-  for(const r of S.rows){
-    const e=r.i%5,dur=Math.round((r.b-r.a)/MIN),isNow=now>=r.a&&now<r.b;
-    const pa=fmtD(r.a,L.tz)!==ymd,pb=fmtD(r.b-1,L.tz)!==ymd;
-    h+=`<tr style="--c:var(${V[e]})" class="${isNow?"now ":""}${e===0&&r.i?"cyc":""}"><td>${r.i+1}</td><td>${Math.floor(r.i/5)+1}</td><td>${EL[e].n}</td>`+
-      `<td>${fmtT(r.a,L.tz)}${pa?' <span class="sm">+1</span>':""}</td><td>${fmtT(r.b,L.tz)}${pb?' <span class="sm">+1</span>':""}</td>`+
-      `<td>${dur}${dur!==24?' <span class="sm">*</span>':""}</td></tr>`;
-  }
-  $("body").innerHTML=h;
-  $("info").innerHTML=`<div><span>Salida del sol</span><b>${fmtT(S.s,L.tz)}</b></div><div><span>Salida del día siguiente</span><b>${fmtT(S.nx,L.tz)}</b></div><div><span>Zona horaria</span><b style="font-size:1rem">${L.tz}</b></div>`;
-}
-
-/* ====== A. En vivo (tick cada segundo) ====== */
-function renderLive(){
-  const L=loc(),adj=+$("adj").value||0;
-  if(!validate(L))return;
-  const now=Date.now();let ymd=fmtD(now,L.tz),S=schedule(ymd,L,adj);
-  if(S&&now<S.s)S=schedule(addDays(ymd,-1),L,adj); // antes del amanecer: sigue el día tátwico anterior
-  else if(S&&now>=S.nx)S=schedule(addDays(ymd,1),L,adj);
-  if(!S){$("liveName").textContent="Sin datos";$("liveCount").textContent="--:--:--";return;}
-  const r=S.rows.find(x=>now>=x.a&&now<x.b)||S.rows[59],e=r.i%5,E=EL[e],nE=EL[(r.i+1)%5];
-  const left=Math.max(0,r.b-now),hh=Math.floor(left/3600000),mm=Math.floor(left%3600000/60000),ss=Math.floor(left%60000/1000);
-  const card=$("liveCard");card.style.setProperty("--c",`var(${V[e]})`);
-  if(card.dataset.e!==String(e)){card.dataset.e=e;$("liveSym").innerHTML=sym(e);
-    $("liveName").textContent=E.n+" · "+E.es;$("livePlanet").textContent="Influencia de "+E.pl;
-    $("livePhrase").textContent="«"+E.p+"»";
-    $("liveChips").innerHTML=[E.sense,"Dirección: "+E.dir,"Mantra "+E.mant,E.col,E.sab].map(t=>`<span class="chip">${t}</span>`).join("");}
-  $("liveCount").textContent=(hh?pad(hh)+":":"")+pad(mm)+":"+pad(ss);
-  $("liveNext").textContent=`Entra ${nE.n} (${nE.es}) a las ${fmtT(r.b,L.tz)} · objeto ${r.i+1} de 60`;
-  $("liveSun").textContent=`Día tátwico desde el amanecer de las ${fmtT(S.s,L.tz)}`;
-  $("arc").setAttribute("stroke-dashoffset",(339.3*(1-(r.b-now)/(r.b-r.a))).toFixed(1)); // el arco se consume con el tiempo
-}
-
-/* ====== C. Guía ====== */
-function buildGuide(){
-  let h=`<div class="card"><h2>Prana y Akash</h2>
-  <p>Según Krumm Heller, el Universo visible e invisible es efecto del Éter, y tras el Éter existe una fuerza que los indios llaman <b>Prana</b>, principio positivo, y <b>Akash</b>, principio negativo. Prana es la energía absoluta: movimiento, vibración, calor, luz, electricidad y magnetismo; es la vida del Éter. Guarda con Akash la relación de los ácidos con las bases.</p>
-  <p>Por la influencia pránica, Akash se vuelve materia y se divide en cinco modalidades, los <b>Tatwas</b>. Cada uno vibra 24 minutos en su tono principal; en dos horas los cinco recorren su ciclo, empezando por Akas en la salida del sol. El maestro del Tatwa es dueño de su destino, pero «es un poder que solo debe estar en manos del hombre puro»: estas fuerzas son espadas de doble filo.</p></div>`;
-  EL.forEach((E,i)=>{h+=`<article class="card el" style="--c:var(${V[i]})"><h3>${sym(i)}${E.n} · ${E.es}</h3>
-  <p>${E.txt}</p><dl><dt>Planeta</dt><dd>${E.pl}</dd><dt>Sentido</dt><dd>${E.sense}</dd><dt>Dirección</dt><dd>${E.dir}</dd><dt>Mantra</dt><dd>${E.mant}</dd><dt>Color</dt><dd>${E.col}</dd><dt>Sabor</dt><dd>${E.sab}</dd></dl>
-  <p class="do"><b>Conviene:</b> ${E.hacer}</p><p class="do"><b>Evita:</b> ${E.evitar}</p></article>`;});
-  h+=`<p class="note">Fuente: Dr. Krumm Heller (Huiracocha), «El Tatwámetro o las Vibraciones del Éter». Texto de orientación esotérica, no sustituye consejo médico, legal ni financiero.</p>`;
-  $("guide").innerHTML=h;
-}
-
-/* ====== Eventos ====== */
-function today(){$("date").value=fmtD(Date.now(),loc().tz);renderTable();renderLive();}
-function refresh(){renderTable();renderLive();}
-sel.addEventListener("change",()=>{$("custom").style.display=sel.value==="custom"?"grid":"none";today();});
-["date","adj","lat","lon","tz"].forEach(id=>$(id).addEventListener("input",refresh));
-$("prev").onclick=()=>{$("date").value=addDays($("date").value,-1);renderTable();};
-$("next").onclick=()=>{$("date").value=addDays($("date").value,1);renderTable();};
-$("today").onclick=today;
-document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{
-  document.querySelectorAll("nav button").forEach(x=>x.classList.toggle("on",x===b));
-  document.querySelectorAll("main>section").forEach(s=>s.classList.toggle("show",s.id===b.dataset.tab));});
-$("theme").onclick=()=>{const r=document.documentElement,dark=getComputedStyle(r).getPropertyValue("--bg").trim()==="#0f0d17";r.dataset.theme=dark?"light":"dark";};
-$("geo").onclick=()=>{
-  if(!navigator.geolocation){showErr("Tu navegador no ofrece geolocalización. Ingresa las coordenadas manualmente.");return;}
-  navigator.geolocation.getCurrentPosition(p=>{
-    sel.value="custom";$("custom").style.display="grid";
-    $("lat").value=p.coords.latitude.toFixed(4);$("lon").value=p.coords.longitude.toFixed(4);
-    $("tz").value=Intl.DateTimeFormat().resolvedOptions().timeZone||"UTC";today();
-  },()=>showErr("No se pudo obtener tu ubicación. Revisa el permiso o ingresa las coordenadas."),{timeout:8000});
-};
-
-buildGuide();
-if(typeof SunCalc==="undefined")showErr("No se pudo cargar SunCalc. Revisa tu conexión a internet.");
-else{today();setInterval(renderLive,1000);setInterval(renderTable,30000);}
-</script>
+<script src="https://cdn.jsdelivr.net/npm/suncalc@1.9.0/suncalc.min.js" crossorigin="anonymous"></script>
+<script src="js/data.js" defer></script>
+<script src="js/background.js" defer></script>
+<script src="js/app.js" defer></script>
 </body>
 </html>

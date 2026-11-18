@@ -1,0 +1,51 @@
+@use "../abstracts/variables" as vars;
+
+.wrap {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: vars.$radius-card;
+  background: var(--card);
+}
+
+table {
+  width: 100%;
+  min-width: vars.$table-min-width;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 6px 10px;
+  border-bottom: 1px solid var(--line);
+  text-align: center;
+}
+
+th {
+  position: sticky;
+  top: 0;
+  background: var(--card);
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+tbody tr {
+  background: color-mix(in srgb, var(--c) 13%, transparent);
+}
+
+tbody tr td:nth-child(3) {
+  color: var(--c);
+  font-weight: 600;
+}
+
+tbody tr.cyc td {
+  border-top: 2px solid var(--gold);
+}
+
+tbody tr.now {
+  background: var(--now);
+}
+
+tbody tr.now td {
+  font-weight: 700;
+}

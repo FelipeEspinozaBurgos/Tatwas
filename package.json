@@ -1,0 +1,15 @@
+{
+  "name": "tatwametro",
+  "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "sass:watch": "sass --watch scss/style.scss:css/style.css",
+    "sass:build": "sass --style=compressed --no-source-map scss/style.scss css/style.css",
+    "icons": "node scripts/make-icons.mjs"
+  },
+  "devDependencies": {
+    "sass": "^1.89.0",
+    "sharp": "^0.34.2"
+  }
+}

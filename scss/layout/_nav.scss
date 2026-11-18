@@ -1,0 +1,19 @@
+nav {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 14px;
+  overflow-x: auto;
+}
+
+nav button {
+  border-radius: 99px;
+  white-space: nowrap;
+}
+
+section {
+  display: none;
+}
+
+section.show {
+  display: block;
+}
